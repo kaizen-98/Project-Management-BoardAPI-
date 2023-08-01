@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Employee</title>
+    <!-- Add your CSS styles if necessary -->
+</head>
+<body>
+<h1>Add New Employee</h1>
+<form th:action="@{/add}" method="post">
+    <div class="input-container">
+        <label for="ToDo">ToDo:</label>
+        <input type="text" id="ToDo" name="ToDo" required><br>
+    </div>
+
+    <div class="input-container">
+        <label for="Progress">Progress:</label>
+        <input type="text" id="Progress" name="Progress" required><br>
+    </div>
+
+    <div class="input-container">
+        <label for="Done">Status:</label>
+        <select id="Done" name="Done">
+            <option value="todo">TODO</option>
+            <option value="inProgress">In Progress</option>
+            <option value="done">Done</option>
+        </select>
+    </div>
+
+    <input type="submit" value="Add Employee">
+</form>
+<a href="/">Back to Employee List</a>
+</body>
+</html>

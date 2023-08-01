@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center; /* Center the content horizontally */
+            margin: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            display: inline-block; /* Center the table */
+            text-align: left;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 800px; /* Limit table width for better readability */
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            text-decoration: none;
+            color: blue;
+        }
+
+        a:hover {
+            color: darkblue;
+        }
+
+        form {
+            display: inline; /* Place the delete form inline with the "Edit" link */
+        }
+
+        .add-link {
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Employee List</h1>
+<div class="table-container">
+    <table border="1">
+        <tr>
+            <th>ToDo</th>
+            <th>Progress</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.toDo}"></td>
+            <td th:text="${employee.progress}"></td>
+            <td th:text="${employee.done}"></td>
+            <td>
+                <a th:href="@{/edit/{id}(id=${employee.id})}">Edit</a>
+                <form th:action="@{/delete/{id}(id=${employee.id})}" method="post">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<a class="add-link" href="/add">Add New Employee</a>
+</body>
+</html>

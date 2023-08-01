@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Employee</title>
+  <!-- Add your CSS styles if necessary -->
+</head>
+<body>
+<h1>Edit Employee</h1>
+<form th:action="@{/edit/{id}(id=${employee.id})}" method="post">
+  <div class="input-container">
+    <label for="ToDo">ToDo:</label>
+    <input type="text" id="ToDo" name="ToDo" th:value="${employee.toDo}" required><br>
+  </div>
+
+  <div class="input-container">
+    <label for="Progress">Progress:</label>
+    <input type="text" id="Progress" name="Progress" th:value="${employee.progress}" required><br>
+  </div>
+
+  <div class="input-container">
+    <label for="Done">Status:</label>
+    <select id="Done" name="Done" th:value="${employee.done}">
+      <option value="todo">TODO</option>
+      <option value="inProgress">In Progress</option>
+      <option value="done">Done</option>
+    </select>
+  </div>
+
+  <input type="submit" value="Save Employee">
+</form>
+<a href="/">Back to Employee List</a>
+</body>
+</html>
