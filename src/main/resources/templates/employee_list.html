@@ -6,7 +6,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center; /* Center the content horizontally */
+            text-align: center;
             margin: 20px;
         }
 
@@ -15,14 +15,14 @@
         }
 
         .table-container {
-            display: inline-block; /* Center the table */
+            display: inline-block;
             text-align: left;
         }
 
         table {
             border-collapse: collapse;
             width: 100%;
-            max-width: 800px; /* Limit table width for better readability */
+            max-width: 800px;
         }
 
         th, td {
@@ -48,12 +48,62 @@
         }
 
         form {
-            display: inline; /* Place the delete form inline with the "Edit" link */
+            display: inline;
         }
 
         .add-link {
             display: block;
             margin-top: 20px;
+        }
+
+        /* New styles for the status column */
+        .status-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .status-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            text-align: center;
+        }
+           .status-card {
+            background-color: #f7f7f7;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
+
+        .status-card h2 {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .status-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .status-card li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 3px;
+        }
+
+        .status-card li span {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
         }
     </style>
 </head>
@@ -64,9 +114,10 @@
         <tr>
             <th>ToDo</th>
             <th>Progress</th>
-            <th>Status</th>
+            <th>Done</th>
             <th>Actions</th>
         </tr>
+        <!-- Loop through employees and display data in rows -->
         <tr th:each="employee : ${employees}">
             <td th:text="${employee.toDo}"></td>
             <td th:text="${employee.progress}"></td>
@@ -76,6 +127,43 @@
                 <form th:action="@{/delete/{id}(id=${employee.id})}" method="post">
                     <input type="submit" value="Delete">
                 </form>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="4">
+                <div class="status-column">
+                    <div class="status-card">
+                        <h2>ToDo</h2>
+                        <ul>
+                            <li th:each="employee : ${employees}" th:if="${employee.done == 'todo'}">
+                                <span th:text="${employee.toDo}"></span><br>
+                                <span th:text="${employee.progress}"></span><br>
+                                <span th:text="${employee.done}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="status-card">
+                        <h2>In Progress</h2>
+                        <ul>
+                            <li th:each="employee : ${employees}" th:if="${employee.done == 'inProgress'}">
+                                <span th:text="${employee.toDo}"></span><br>
+                                <span th:text="${employee.progress}"></span><br>
+                                <span th:text="${employee.done}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="status-card">
+                        <h2>Done</h2>
+                        <ul>
+                            <li th:each="employee : ${employees}" th:if="${employee.done == 'done'}">
+                                <span th:text="${employee.toDo}"></span><br>
+                                <span th:text="${employee.progress}"></span><br>
+                                <span th:text="${employee.done}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </td>
         </tr>
     </table>
